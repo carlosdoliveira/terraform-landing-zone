@@ -9,10 +9,11 @@ provider "azurerm" {
 resource "azurerm_resource_group" "rg" {
   name     = "${var.prefix}rg-landingzone"
   location = var.location
+  tags     = var.tags
+
   lifecycle {
     create_before_destroy = true
   }
-  tags = var.tags
 }
 
 # Networking Stuff
