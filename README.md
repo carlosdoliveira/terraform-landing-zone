@@ -1,4 +1,4 @@
-# Scripts
+# Terraform Landing Zone
 ## Sumário
  - [Pré-Requisitos](#Pré-Requisitos)
  - [Como usar este repositório](#como-usar-este-repositório)
