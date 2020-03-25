@@ -1,6 +1,7 @@
 ![Terraform GitHub Actions](https://github.com/cdanieloliveira/terraform-landing-zone/workflows/Terraform%20GitHub%20Actions/badge.svg)
 ![Followers](https://img.shields.io/github/followers/cdanieloliveira?label=Seguidores&style=plastic)
 ![GitHub repo size](https://img.shields.io/github/repo-size/cdanieloliveira/terraform-landing-zone?style=plastic)
+![GitHub](https://img.shields.io/github/license/cdanieloliveira/terraform-landing-zone?style=plastic)
 
 # Terraform Landing Zone
 ## Intrododução
