@@ -3,8 +3,6 @@ provider "azurerm" {
   # If you are using version 1.x, the "features" block is not allowed.
   version = "~>2.2.0"
   features {}
-  subscription_id = "507ed790-fcc7-4baf-bf06-ccbeb13db805"
-
 }
 
 # Resource Group #

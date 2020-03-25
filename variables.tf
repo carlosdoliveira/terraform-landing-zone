@@ -1,4 +1,8 @@
-variable location {}
+variable location {
+    type = string
+    default = "eastus"
+    description = "Definição da localidade onde será feito do deployment dos Recursos"
+}
 
 variable "profile"{
     type = string
@@ -9,6 +13,7 @@ variable "prefix" {
     type = string
     default = "lz-"
 }
+
 variable "tags" {
     type = map
     default = {

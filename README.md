@@ -1,15 +1,18 @@
 # Terraform Landing Zone
+## Intrododução
+O intuito deste repositório é apresentar um cenário de landing zone para intuito de estudo. 
+
+---
 ## Sumário
  - [Pré-Requisitos](#Pré-Requisitos)
  - [Como usar este repositório](#como-usar-este-repositório)
- - [clonando o repositório](#clonando-o-repositório)
+ - [Clonando o repositório](#clonando-o-repositório)
  - [Realizando commit e push](#realizando-commit-e-push)
+ - [Validando e construindo o ambiente Terraform](#Validando-e-construindo-o-ambiente-Terraform)
  - [Contato](#Contato)
  - [Change Log](#Change-log)
 
 ----
-
-O intuito deste repositório é apresentar um cenário de landing zone para intuito de estudo. 
 
 ### Pré-Requisitos
 Para usar este repositório você deve obrigatoriamente:
@@ -25,36 +28,24 @@ Para usar este repositório você deve obrigatoriamente:
 Vai adicionar um novo script, ou quer testar algo que encontrou? **Crie uma branch**. Você não perde o que já existe no *master* e se der algum problema é só para sua branch e criar uma branch nova. Simples.
 No arquivo [main.tf](main.tf) você encontrará as definições da infraestrutura. Sinta-se à vontade para visitar o documento e validar todas as configurações.
 
-**Importante**: Você deve alterar o `subscription_id` no começo do script para a assinatura que você deseja gerenciar. 
+**Importante**: para usar testar é obrigatório que você já esteja logado com sua conta no Azure. 
 
-``` Terraform
-provider "azurerm" {
-  # The "feature" block is required for AzureRM provider 2.x.
-  # If you are using version 1.x, the "features" block is not allowed.
-  version = "~>2.2.0"
-  features {}
-  subscription_id = "507ed790-fcc7-4baf-bf06-ccbeb13db805"
-}
-``` 
 [Retornar ao topo](#Sumário) 
 
-----------
-
-
+---
 ### Clonando o repositório
 Super simples, basta seguir o comando abaixo: 
 
-```
+``` Git
 git clone https://github.com/cdanieloliveira/terraform-landing-zone.git
 ```
 [Retornar ao topo](#Sumário) 
 
-----------
-
+---
 
 ### Realizando commit e push
-Tenha certeza de que você tenha editado os arquivos que quer fazer upload
-```git
+Tenha certeza de que você tenha editado os arquivos que quer fazer upload: 
+``` Git
 git add .
 git commit -m "mensagem de commit"
 git push -u origin master
@@ -64,17 +55,41 @@ git push -u origin master
 
 [Retornar ao topo](#Sumário) 
 
-----------
+---
+#### Azure CLI
+Se já quiser testar o ambiente funcional, tenha em mente que é necessári já estar logado no Azure CLI. Para ver em qual subscription será feito o deploy use o comando a seguir: 
+``` cmd
+$ az account list -o table
+```
+Com a tabela, selecione a subscription que você deseja utilizando inserindo o comando: 
+``` cmd
+$ az account set --Subscription 00000000-0000-000-0000-000000000000
+```
+Por fim, para confirmar que você está no escopo correto da assinatura, use o comando: 
+``` cmd
+$ az account show -o table
+```
+A partir deste ponto você já pode testar a implantação da infraestrutura com o comando `terraform plan` e, se estiver seguro com as informações, pode usar `terraform apply`.
 
+#### Terraform
+Como informado, você deve usar os comandos `terraform plan` e `terraform apply` mas existem algumas coisas que você deve se atentar: 
+ - Este Script usa a versão v0.12.24 do Terraform. 
+ - Verifique as tags no arquivo [variables.tf](variables.tf) e adicione as que mais fazem sentido para o seu deployment
+ - Veja se a região também está de acordo com o que você precisa.
+ - Por padrão, o prefixo indicado para os recursos é o "lz-". Fique à vontade para trocar.
+ - Antes de rodar o comando `terraform plan`, procure validar a sintaxe do seu script usando `terraform validate`  
+
+[Retornar ao topo](#Sumário) 
+
+---
 ### Contato
-
 Tem alguma dica de como melhorar este repositório? Me manda um oi!
 [carlos.oliveira@cloudsquad.com.br](mailto:carlos.oliveira@cloudsquad.com.br)
 
 [Retornar ao topo](#Sumário) 
 
+---
 # Change Log
-[Retornar ao topo](#Sumário) 
 
 ## [1.0.0] - 2020-03-25 
 ### Added
