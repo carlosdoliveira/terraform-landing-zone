@@ -11,7 +11,7 @@ variable "profile" {
 
 variable "prefix" {
   type    = string
-  default = "LZ-"
+  default = "lz-"
 }
 
 variable "tags" {
