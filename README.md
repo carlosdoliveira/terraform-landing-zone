@@ -1,3 +1,5 @@
+![Terraform GitHub Actions](https://github.com/cdanieloliveira/terraform-landing-zone/workflows/Terraform%20GitHub%20Actions/badge.svg)
+
 # Terraform Landing Zone
 ## Intrododução
 O intuito deste repositório é apresentar um cenário de landing zone para intuito de estudo. 
