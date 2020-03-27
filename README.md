@@ -96,7 +96,7 @@ Tem alguma dica de como melhorar este repositório? Me manda um oi!
 ### Added
  - [main.tf](main.tf) agora possui configuração do Local Network gateway
  - [variables.tf](variables.tf) agora te dá opção de inserir o IP público do Local Network Gateway e também te dá opção de inserir o range de ip local. 
-https://github.com/cdanieloliveira/terraform-landing-zone/blob/master/variables.tf#L12-L24
+https://github.com/cdanieloliveira/terraform-landing-zone/blob/92f95e1ab68be5949e613a4862dbb9d25cb8c1d5/variables.tf#L36-L44
 ### Changed
 ### Fixed
  - Range de IP da Subnet Gateway Subnet agora está definido como `172.16.3.192/28`, opção suportada pelo azure.
