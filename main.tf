@@ -152,6 +152,7 @@ resource "azurerm_virtual_network_gateway_connection" "vpn" {
   name                       = "${var.prefix}onpremises-site01"
   type                       = "IPSec"
   virtual_network_gateway_id = azurerm_virtual_network_gateway.vpn.id
+  local_network_gateway_id = azurerm_local_network_gateway.vpn.id
   resource_group_name        = azurerm_resource_group.rg.name
 }
 
