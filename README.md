@@ -92,7 +92,15 @@ Tem alguma dica de como melhorar este repositório? Me manda um oi!
 
 ---
 # Change Log
-
+## [1.1.0] - 2020-03-25 
+### Added
+ - Adicionada configuração de GatewaySubnet em main.tf
+ - Adicionada configuração de VPN Gateway em main.tf
+ - Adicionada configuração de VPN Connectio em main.tf
+ - Chave pré-compartilhada criada por padrão em main.tf
+### Changed
+### Fixed
+---
 ## [1.0.0] - 2020-03-25 
 ### Added
  - main.tf
