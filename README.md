@@ -97,6 +97,7 @@ Tem alguma dica de como melhorar este repositório? Me manda um oi!
  - [main.tf](main.tf) agora possui configuração do Local Network gateway
  - [variables.tf](variables.tf) agora te dá opção de inserir o IP público do Local Network Gateway e também te dá opção de inserir o range de ip local. 
 
+
 https://github.com/cdanieloliveira/terraform-landing-zone/blob/master/variables.tf#L12-L24
 
 ### Changed
