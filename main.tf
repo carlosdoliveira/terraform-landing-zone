@@ -60,7 +60,7 @@ resource "azurerm_subnet" "vpn" {
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
   name                 = "GatewaySubnet"
-  address_prefix       = "172.16.0.200/28"
+  address_prefix       = "172.16.3.192/28"
 }
 
 resource "azurerm_subnet" "management" {
@@ -126,7 +126,7 @@ resource "azurerm_public_ip" "vpn" {
 
 resource "azurerm_virtual_network_gateway" "vpn" {
   resource_group_name = azurerm_resource_group.rg.name
-  location            = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
   name                = "${var.prefix}gw"
   type                = "vpn"
   sku                 = "VpnGw1"
@@ -153,6 +153,15 @@ resource "azurerm_virtual_network_gateway_connection" "vpn" {
   type                       = "IPSec"
   virtual_network_gateway_id = azurerm_virtual_network_gateway.vpn.id
   resource_group_name        = azurerm_resource_group.rg.name
+}
+
+resource "azurerm_local_network_gateway" "vpn" {
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  name                = "${var.prefix}localgw-onprem01"
+  gateway_address     = var.localgwIP
+  address_space       = var.localgwAddress
+  tags                = var.tags
 }
 
 ## NSGs and rules ##

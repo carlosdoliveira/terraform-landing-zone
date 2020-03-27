@@ -32,3 +32,13 @@ variable "adds_instance_count" {
   type    = number
   default = 2
 }
+
+variable "localgwIP" {
+  type    = string
+  default = "0.0.0.0"
+}
+
+variable "localgwAddress" {
+  type    = list
+  default = ["10.0.0.0/16"]
+}
