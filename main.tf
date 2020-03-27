@@ -5,6 +5,10 @@ provider "azurerm" {
   features {}
 }
 
+provider "random" {
+  version = ">= 2.2.0"
+}
+
 # Resource Group #
 resource "azurerm_resource_group" "rg" {
   name     = "${var.prefix}rg-landingzone"
@@ -52,6 +56,13 @@ resource "azurerm_subnet" "identity" {
   resource_group_name  = azurerm_resource_group.rg.name
 }
 
+resource "azurerm_subnet" "vpn" {
+  resource_group_name  = azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  name                 = "GatewaySubnet"
+  address_prefix       = "172.16.0.200/28"
+}
+
 resource "azurerm_subnet" "management" {
   name                 = "management"
   address_prefix       = "172.16.1.0/24"
@@ -74,7 +85,6 @@ resource "azurerm_subnet" "sql" {
 }
 
 # Vnet Peerings
-
 resource "azurerm_virtual_network_peering" "hub-spoke1" {
   name                      = "hub-spoke1"
   resource_group_name       = azurerm_resource_group.rg.name
@@ -103,6 +113,46 @@ resource "azurerm_virtual_network_peering" "spoke2-hub" {
   virtual_network_name      = azurerm_virtual_network.spoke2.name
   remote_virtual_network_id = azurerm_virtual_network.vnet.id
   allow_forwarded_traffic   = false
+}
+
+
+# VPN Gateway
+resource "azurerm_public_ip" "vpn" {
+  name                = "${var.prefix}gw-prd-ip"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  allocation_method   = "Dynamic"
+}
+
+resource "azurerm_virtual_network_gateway" "vpn" {
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.name
+  name                = "${var.prefix}gw"
+  type                = "vpn"
+  sku                 = "VpnGw1"
+  ip_configuration {
+    name                          = "vnetGatewayConfig"
+    public_ip_address_id          = azurerm_public_ip.vpn.id
+    private_ip_address_allocation = "Dynamic"
+    subnet_id                     = azurerm_subnet.vpn.id
+  }
+  tags = var.tags
+}
+
+resource "random_string" "vpn" {
+  length           = 16
+  special          = true
+  override_special = "@#$%&*"
+}
+
+resource "azurerm_virtual_network_gateway_connection" "vpn" {
+  authorization_key          = random_string.vpn.result
+  location                   = azurerm_resource_group.rg.location
+  tags                       = var.tags
+  name                       = "${var.prefix}onpremises-site01"
+  type                       = "IPSec"
+  virtual_network_gateway_id = azurerm_virtual_network_gateway.vpn.id
+  resource_group_name        = azurerm_resource_group.rg.name
 }
 
 ## NSGs and rules ##
