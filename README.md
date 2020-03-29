@@ -103,7 +103,6 @@ Tem alguma dica de como melhorar este repositório? Me manda um oi!
 ### Added
  - [main.tf](main.tf) agora possui configuração do Local Network gateway
  - [variables.tf](variables.tf) agora te dá opção de inserir o IP público do Local Network Gateway e também te dá opção de inserir o range de ip local. 
-
 ``` Golang
 variable "localgwIP" {
   type    = string
