@@ -146,7 +146,7 @@ resource "random_string" "vpn" {
 }
 
 resource "azurerm_virtual_network_gateway_connection" "vpn" {
-  authorization_key          = random_string.vpn.result
+  shared_key                 = random_string.vpn.result
   location                   = azurerm_resource_group.rg.location
   tags                       = var.tags
   name                       = "${var.prefix}onpremises-site01"
@@ -284,45 +284,27 @@ resource "azurerm_network_interface" "adds" {
   }
 }
 
-resource "azurerm_virtual_machine" "adds" {
+resource "azurerm_windows_virtual_machine" "adds" {
   name                  = "${var.prefix}${var.adds_name}${count.index}"
-  count                 = var.adds_instance_count
-  location              = azurerm_resource_group.rg.location
+  computer_name         = "${var.prefix}${var.adds_name}${count.index}"
   resource_group_name   = azurerm_resource_group.rg.name
-  network_interface_ids = [element(azurerm_network_interface.adds.*.id, count.index)]
+  location              = azurerm_resource_group.rg.location
   availability_set_id   = azurerm_availability_set.adds.id
-  vm_size               = "Standard_B2ms"
-
-  # Uncomment this line to delete the OS disk automatically when deleting the VM
-  delete_os_disk_on_termination = true
-
-  # Uncomment this line to delete the data disks automatically when deleting the VM
-  delete_data_disks_on_termination = true
-
-  storage_image_reference {
+  size                  = "Standard_B2ms"
+  admin_username        = "adminuser"
+  admin_password        = "P@$$w0rd1234!"
+  network_interface_ids = [element(azurerm_network_interface.adds.*.id, count.index)]
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
+    name                 = "${var.prefix}${var.adds_name}${count.index}_os_disk"
+  }
+  count = var.adds_instance_count
+  source_image_reference {
     publisher = "MicrosoftWindowsServer"
     offer     = "WindowsServer"
     sku       = "2016-Datacenter"
     version   = "latest"
   }
-  storage_os_disk {
-    name              = "${var.prefix}${var.adds_name}${count.index}_os_disk"
-    caching           = "ReadWrite"
-    create_option     = "FromImage"
-    managed_disk_type = "Standard_LRS"
-  }
-  os_profile {
-    computer_name  = "${var.prefix}${var.adds_name}${count.index}"
-    admin_username = "testadmin"
-    admin_password = "#POC@dmin2020"
-  }
-  os_profile_windows_config {
-    timezone                  = "E. South America Standard Time"
-    provision_vm_agent        = true
-    enable_automatic_upgrades = true
-
-  }
-  tags = {
-    environment = "staging"
-  }
+  tags = var.tags
 }

@@ -92,12 +92,29 @@ Tem alguma dica de como melhorar este repositório? Me manda um oi!
 
 ---
 # Change Log
+## [1.0.3] - 2020-03-29 
+### Added
+### Changed
+ - Agora Máquinas virtuais Windows estão usando a nova nomenclatura `azurerm_windows_virtual_machine`;
+### Fixed
+ - Aplicadas correções no ambiente com relação ao VPN Gateway
+
 ## [1.0.2] - 2020-03-27
 ### Added
  - [main.tf](main.tf) agora possui configuração do Local Network gateway
  - [variables.tf](variables.tf) agora te dá opção de inserir o IP público do Local Network Gateway e também te dá opção de inserir o range de ip local. 
+``` Golang
+variable "localgwIP" {
+  type    = string
+  default = "0.0.0.0"
+}
 
-https://github.com/cdanieloliveira/terraform-landing-zone/blob/92f95e1ab68be5949e613a4862dbb9d25cb8c1d5/variables.tf#L36-L44
+
+variable "localgwAddress" {
+  type    = list
+  default = ["10.0.0.0/16"]
+}
+```
 ### Changed
 ### Fixed
  - Range de IP da Subnet Gateway Subnet agora está definido como `172.16.3.192/28`, opção suportada pelo azure.
