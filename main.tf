@@ -115,13 +115,17 @@ resource "azurerm_virtual_network_peering" "spoke2-hub" {
   allow_forwarded_traffic   = false
 }
 
-
 # VPN Gateway
 resource "azurerm_public_ip" "vpn" {
   name                = "${var.prefix}gw-prd-ip"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   allocation_method   = "Dynamic"
+}
+
+data "azurerm_public_ip" "vpn" {
+  name                = azurerm_public_ip.vpn.name
+  resource_group_name = azurerm_resource_group.rg.name
 }
 
 resource "azurerm_virtual_network_gateway" "vpn" {

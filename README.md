@@ -92,13 +92,19 @@ Tem alguma dica de como melhorar este repositório? Me manda um oi!
 
 ---
 # Change Log
+## [1.0.4] - 2020-04-08 
+### Added
+ - VPN Gateway retorna o IP Público, depois de concluído o deployment
+### Changed
+### Fixed
+---
 ## [1.0.3] - 2020-03-29 
 ### Added
 ### Changed
  - Agora Máquinas virtuais Windows estão usando a nova nomenclatura `azurerm_windows_virtual_machine`;
 ### Fixed
  - Aplicadas correções no ambiente com relação ao VPN Gateway
-
+---
 ## [1.0.2] - 2020-03-27
 ### Added
  - [main.tf](main.tf) agora possui configuração do Local Network gateway
