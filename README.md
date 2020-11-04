@@ -2,7 +2,7 @@
 
 # Terraform Landing Zone
 ## Intrododução
-O intuito deste repositório é apresentar um cenário de landing zone para intuito de estudo. 
+O intuito deste repositório é apresentar um cenário de landing zone para intuito de estudo. Use com cuidado.
 
 ---
 ## Sumário
